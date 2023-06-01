@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Hostel Food Menu Reviews</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    h1 {
+      text-align: center;
+    }
+    .review-form {
+      margin: 20px auto;
+      width: 400px;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    }
+    .review-form label {
+      display: block;
+      margin-bottom: 10px;
+    }
+    .review-form input[type="text"],
+    .review-form select,
+    .review-form textarea {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    .review-form button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .review-list {
+      list-style: none;
+      padding: 0;
+    }
+    .review-item {
+      margin-bottom: 20px;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    }
+    .review-item .item-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .review-item .item-header .item-menu {
+      font-weight: bold;
+    }
+    .review-item .item-rating {
+      font-weight: bold;
+    }
+    .review-item .item-rating span {
+      color: gold;
+    }
+    .review-item .item-comment {
+      margin-top: 10px;
+    }
+    nav {
+      background-color: #f4f4f4;
+      padding: 10px;
+    }
+
+    nav ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    nav ul li {
+      display: inline-block;
+      margin-right: 20px;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+    }
+    footer {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+  </style>
+</head>
+<body>
+    <header>
+  <h1>Hostel Food Menu Reviews</h1>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="http://127.0.0.1:5500/indx.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="http://localhost:3000/">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="http://localhost:3004/">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  </header>
+<section>
+  <div class="review-form">
+    <h2>Add a Review</h2>
+    <form id="reviewForm" action="/reviews" method="POST">
+      <label for="menuItem">Menu Item:</label>
+      <input type="text" id="menuItem" name="menuItem" required>
+
+      <label for="rating">Rating:</label>
+      <select id="rating" name="rating" required>
+        <option value="5">5 Stars</option>
+        <option value="4">4 Stars</option>
+        <option value="3">3 Stars</option>
+        <option value="2">2 Stars</option>
+        <option value="1">1 Star</option>
+      </select>
+
+      <label for="comment">Comment:</label>
+      <textarea id="comment" name="comment" required></textarea>
+
+      <button type="submit">Submit Review</button>
+    </form>
+  </div>
+
+  <h2>Reviews</h2>
+  <ul id="reviewList" class="review-list"></ul>
+</section>
+  <script>
+    // JavaScript code for handling form submission and fetching reviews
+    const reviewForm = document.getElementById('reviewForm');
+    const reviewList = document.getElementById('reviewList');
+
+    // Function to create a review item element
+    function createReviewItem(review) {
+      const item = document.createElement('li');
+      item.classList.add('review-item');
+
+      const itemHeader = document.createElement('div');
+      itemHeader.classList.add('item-header');
+
+      const itemMenu = document.createElement('span');
+      itemMenu.classList.add('item-menu');
+      itemMenu.textContent = review.menuItem;
+
+      const itemRating = document.createElement('span');
+      itemRating.classList.add('item-rating');
+      itemRating.innerHTML = `Rating: ${getStarRating(review.rating)}`;
+
+      const itemComment = document.createElement('p');
+      itemComment.classList.add('item-comment');
+      itemComment.textContent = review.comment;
+
+      itemHeader.appendChild(itemMenu);
+      itemHeader.appendChild(itemRating);
+      item.appendChild(itemHeader);
+      item.appendChild(itemComment);
+
+      return item;
+    }
+
+    // Function to generate star rating HTML based on the rating value
+    function getStarRating(rating) {
+      const starTotal = 5;
+      const starFilled = '<span style="color: gold;">★</span>';
+      const starEmpty = '<span style="color: lightgray;">★</span>';
+      const ratingValue = parseInt(rating);
+
+      let starsHTML = '';
+
+      for (let i = 1; i <= starTotal; i++) {
+        if (i <= ratingValue) {
+          starsHTML += starFilled;
+        } else {
+          starsHTML += starEmpty;
+        }
+      }
+
+      return starsHTML;
+    }
+
+    // Function to fetch and display reviews
+    function fetchReviews() {
+      fetch('/reviews')
+        .then(response => response.json())
+        .then(reviews => {
+          // Clear the existing reviews
+          reviewList.innerHTML = '';
+
+          // Create review items and append them to the list
+          reviews.forEach(review => {
+            const item = createReviewItem(review);
+            reviewList.appendChild(item);
+          });
+        })
+        .catch(error => {
+          console.error('Error fetching reviews:', error);
+        });
+    }
+
+    // Event listener for form submission
+    reviewForm.addEventListener('submit', event => {
+      event.preventDefault();
+
+      const menuItem = document.getElementById('menuItem').value;
+      const rating = document.getElementById('rating').value;
+      const comment = document.getElementById('comment').value;
+
+      const review = {
+        menuItem,
+        rating,
+        comment
+      };
+
+      // Send the review data to the server
+      fetch('/reviews', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(review)
+      })
+        .then(response => response.json())
+        .then(newReview => {
+          // Create a review item and prepend it to the list
+          const item = createReviewItem(newReview);
+          reviewList.prepend(item);
+
+          // Display the alert message
+          alert('Thanks for rating!');
+
+          // Reset the form
+          reviewForm.reset();
+        })
+        .catch(error => {
+          console.error('Error submitting review:', error);
+        });
+    });
+
+    // Fetch reviews on page load
+    fetchReviews();
+  </script>
+   <footer class="bg-dark text-white">
+    <div class="container py-4">
+        <div class="row">
+            <div class="col-md-6">
+                <h5>Contact Us</h5>
+                <ul class="list-unstyled">
+                    <li>
+                        <i class="fas fa-phone-alt"></i> Phone: +1 123-456-7890
+                    </li>
+                    <li>
+                        <i class="fas fa-envelope"></i> Email: info@hostelfoodreview.com
+                    </li>
+                    <li> &copy; 2023 Hostel Food Review. All rights reserved.</li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <p class="text-right">
+                    Created By <br> VETRIVENDHAN S <br> VENKAT PRABU P <br> PRAMOTH KUAMR M 
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

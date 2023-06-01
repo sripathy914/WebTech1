@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOSTEL FOOD MENU</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="i.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="app.js"></script>
+    <style>
+        .card {
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .shiny-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .shiny-card::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(241, 11, 11, 0.8), rgba(4, 250, 237, 0.677));
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s;
+            transform: translateX(-100%);
+        }
+
+        .shiny-card:hover::after {
+            opacity: 1;
+            transform: translateX(100%);
+        }
+
+        .carousel-inner img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 50%;
+        }
+
+        .navbar {
+            margin-bottom: 10px;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        nav {
+            background-color: #f4f4f4;
+            padding: 10px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        nav ul li {
+            display: inline-block;
+            margin-right: 20px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <ul>
+                <li><a href="#"><i class="fa fa-fw fa-home"></i> Home</a></li>
+                <li><a href="http://localhost:3000/"><i class="fa fa-fw fa-info"></i> About</a></li>
+                <li><a href="http://localhost:3004/"><i class="fa fa-fw fa-envelope"></i> Contact</a></li>
+                <li><a href="http://localhost:3003/"><i class="fa fa-fw fa-envelope"></i> Review</a></li>
+                <li><a href="http://localhost:3002/"><i class="fa fa-fw fa-user"></i> Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section>
+        <div class="container">
+            <h1 class="text-center my-4">Boy's hostel</h1>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card shiny-card">
+                        <img src="https://www.kongu.ac.in/facilities/accommodation/valluvar.jpg" class="card-img-top"
+                            alt="Food Image">
+                        <div class="card-body">
+                            <h5 class="card-title">Valluvar</h5>
+                            <p class="card-text"></p>
+                            <a href="http://127.0.0.1:5500/valluvar.html" class="btn btn-primary">View more</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <img src="https://www.kongu.ac.in/facilities/accommodation/ponnar.jpg" class="card-img-top"
+                            alt="Food Image">
+                        <div class="card-body">
+                            <h5 class="card-title">Ponnar</h5>
+                            <p class="card-text"></p>
+                            <a href="http://127.0.0.1:5500/valluvar.html" class="btn btn-primary">View more</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <img src="https://www.kongu.ac.in/facilities/accommodation/kaveri.jpg" class="card-img-top"
+                            alt="Food Image">
+                        <div class="card-body">
+                            <h5 class="card-title">Bharathi</h5>
+                            <p class="card-text"></p>
+                            <a href="http://127.0.0.1:5500/valluvar.html" class="btn btn-primary">View more</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="demo" class="carousel slide" data-ride="carousel">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <li data-target="#demo" data-slide-to="0" class="active"></li>
+                <li data-target="#demo" data-slide-to="1"></li>
+                <li data-target="#demo" data-slide-to="2"></li>
+            </ol>
+
+            <!-- The slideshow -->
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="https://www.kongu.ac.in/facilities/accommodation/valluvar.jpg" alt="Los Angeles">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://www.kongu.ac.in/facilities/accommodation/ponnar.jpg" alt="Chicago">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://www.kongu.ac.in/facilities/accommodation/bhavani.jpg" alt="New York">
+                </div>
+            </div>
+
+            <!-- Left and right controls -->
+            <a class="carousel-control-prev" href="#demo" data-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </a>
+            <a class="carousel-control-next" href="#demo" data-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </a>
+        </div>
+
+        <div class="container">
+            <h1 class="text-center my-4">Girl's hostel</h1>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <img src="https://www.kongu.ac.in/facilities/accommodation/dheeran.jpg" class="card-img-top"
+                            alt="Food Image">
+                        <div class="card-body">
+                            <h5 class="card-title">Dheeran</h5>
+                            <p class="card-text"></p>
+                            <a href="http://127.0.0.1:5500/valluvar.html" class="btn btn-primary">View more</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <img src="https://www.kongu.ac.in/facilities/accommodation/bhavani.jpg" class="card-img-top"
+                            alt="Food Image">
+                        <div class="card-body">
+                            <h5 class="card-title">Bhavani</h5>
+                            <p class="card-text"></p>
+                            <a href="http://127.0.0.1:5500/valluvar.html" class="btn btn-primary">View more</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <img src="https://www.kongu.ac.in/facilities/accommodation/bharathi.jpg" class="card-img-top"
+                            alt="Food Image">
+                        <div class="card-body">
+                            <h5 class="card-title">Kaveri</h5>
+                            <p class="card-text"></p>
+                            <a href="http://127.0.0.1:5500/valluvar.html" class="btn btn-primary">View more</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="bg-dark text-white">
+          <div class="container py-4">
+              <div class="row">
+                  <div class="col-md-6">
+                      <h5>Contact Us</h5>
+                      <ul class="list-unstyled">
+                          <li>
+                              <i class="fas fa-phone-alt"></i> Phone: +1 123-456-7890
+                          </li>
+                          <li>
+                              <i class="fas fa-envelope"></i> Email: info@hostelfoodreview.com
+                          </li>
+                          <li> &copy; 2023 Hostel Food Review. All rights reserved.</li>
+                      </ul>
+                  </div>
+                  <div class="col-md-6">
+                      <p class="text-right">
+                          Created By <br> VETRIVENDHAN S <br> VENKAT PRABU P <br> PRAMOTH KUAMR M 
+                      </p>
+                  </div>
+              </div>
+          </div>
+      </footer>
+    </body>
+</html>
